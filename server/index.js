@@ -1,5 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import multer from 'multer';
@@ -13,8 +14,6 @@ import postRoutes from './routes/posts.js';
 import { register } from './controllers/auth.js';
 import { createPost } from './controllers/posts.js';
 import { verifyToken } from './middleware/auth.js';
-
-
 
 /* CONFIGURATIONS */
 const __filename = fileURLToPath(import.meta.url);
@@ -49,3 +48,15 @@ app.post('/posts', verifyToken, upload.single('picture'), createPost);
 app.use('/auth', authRoutes);
 app.use('/users', userRoutes);
 app.use('/posts', postRoutes);
+
+/* MONGOOSE SETUP */
+const PORT = process.env.PORT || 6001;
+mongoose
+  .connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
+  })
+  .catch((error) => console.error(`${error} did not connect`));
