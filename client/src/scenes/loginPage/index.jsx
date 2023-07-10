@@ -13,7 +13,7 @@ const LoginPage = () => {
         textAlign="center"
       >
         <Typography fontWeight="bold" fontSize="32px" color="primary">
-          BeautyPedia
+          Beautypedia
         </Typography>
       </Box>
 
@@ -25,7 +25,7 @@ const LoginPage = () => {
         backgroundColor={theme.palette.background.alt}
       >
         <Typography fontWeight="500" variant="h5" sx={{ mb: '1.5rem' }}>
-          Welcome to BeautyPedia, the Social Media for Beauty Addicts!
+          Welcome to Beautypedia, the Social Media for Beauty Addicts!
         </Typography>
         <Form />
       </Box>
