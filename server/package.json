@@ -20,8 +20,8 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js",
-    "build": "npm start"
+    "start": "node index.js",
+    "build": "npm install"
   },
   "keywords": [],
   "author": "",
