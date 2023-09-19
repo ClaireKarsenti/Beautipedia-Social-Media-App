@@ -15,15 +15,23 @@ const ProfilePage = () => {
   const isNonMobileScreens = useMediaQuery('(min-width:1000px)');
 
   const getUser = async () => {
+    try{
     const response = await fetch(
       `https://social-media-app-clairekarsenti.onrender.com/users/${userId}`,
       {
         method: 'GET',
         headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error fetching user data. Status: ${response.status}`);
       }
-    );
-    const data = await response.json();
-    setUser(data);
+
+      const data = await response.json();
+      setUser(data);
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
   };
 
   useEffect(() => {

@@ -138,6 +138,7 @@ const Form = () => {
                   onChange={handleChange}
                   value={values.firstName}
                   name="firstName"
+                  required
                   error={
                     Boolean(touched.firstName) && Boolean(errors.firstName)
                   }
@@ -150,6 +151,7 @@ const Form = () => {
                   onChange={handleChange}
                   value={values.lastName}
                   name="lastName"
+                  required
                   error={Boolean(touched.lastName) && Boolean(errors.lastName)}
                   helperText={touched.lastName && errors.lastName}
                   sx={{ gridColumn: 'span 2' }}
@@ -160,6 +162,7 @@ const Form = () => {
                   onChange={handleChange}
                   value={values.location}
                   name="location"
+                  required
                   error={Boolean(touched.location) && Boolean(errors.location)}
                   helperText={touched.location && errors.location}
                   sx={{ gridColumn: 'span 4' }}
@@ -170,6 +173,7 @@ const Form = () => {
                   onChange={handleChange}
                   value={values.occupation}
                   name="occupation"
+                  required
                   error={
                     Boolean(touched.occupation) && Boolean(errors.occupation)
                   }
@@ -198,7 +202,7 @@ const Form = () => {
                       >
                         <input {...getInputProps()} />
                         {!values.picture ? (
-                          <p>Add Picture Here</p>
+                          <p>Add Picture Here*</p>
                         ) : (
                           <FlexBetween>
                             <Typography>{values.picture.name}</Typography>
@@ -218,6 +222,7 @@ const Form = () => {
               onChange={handleChange}
               value={values.email}
               name="email"
+              required
               error={Boolean(touched.email) && Boolean(errors.email)}
               helperText={touched.email && errors.email}
               sx={{ gridColumn: 'span 4' }}
@@ -229,11 +234,20 @@ const Form = () => {
               onChange={handleChange}
               value={values.password}
               name="password"
+              required
               error={Boolean(touched.password) && Boolean(errors.password)}
               helperText={touched.password && errors.password}
               sx={{ gridColumn: 'span 4' }}
             />
           </Box>
+          <Typography
+            mt={2}
+            sx={{
+              fontStyle: 'italic',
+            }}
+          >
+            *required field
+          </Typography>
 
           {/* BUTTONS */}
           <Box>
@@ -268,6 +282,11 @@ const Form = () => {
                 ? "Don't have an account? Sign Up here."
                 : 'Already have an account? Login here.'}
             </Typography>
+            {isLogin && (
+              <Typography mt={2}>
+                Test Account: test@gmail.com / testpassword123
+              </Typography>
+            )}
           </Box>
         </form>
       )}
