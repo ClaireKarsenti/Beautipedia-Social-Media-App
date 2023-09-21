@@ -24,7 +24,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
 
   const patchFriend = async () => {
     const response = await fetch(
-      `https://social-media-app-clairekarsenti.onrender.com/users/${_id}/${friendId}`,
+      `https://beautipedia-clairekarsenti.onrender.com/users/${_id}/${friendId}`,
       {
         method: 'PATCH',
         headers: {

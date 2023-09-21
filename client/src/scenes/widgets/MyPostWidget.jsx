@@ -48,7 +48,7 @@ const MyPostWidget = ({ picturePath }) => {
     }
 
     const response = await fetch(
-      `https://social-media-app-clairekarsenti.onrender.com/posts`,
+      `https://beautipedia-clairekarsenti.onrender.com/posts`,
       {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` },

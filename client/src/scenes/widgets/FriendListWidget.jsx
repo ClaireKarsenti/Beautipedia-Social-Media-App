@@ -14,7 +14,7 @@ const FriendListWidget = ({ userId }) => {
   const getFriends = async () => {
     try {
       const response = await fetch(
-        `https://social-media-app-clairekarsenti.onrender.com/users/${userId}/friends`,
+        `https://beautipedia-clairekarsenti.onrender.com/users/${userId}/friends`,
         {
           method: 'GET',
           headers: { Authorization: `Bearer ${token}` },

@@ -11,7 +11,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
   const getPosts = async () => {
     try {
       const response = await fetch(
-        'https://social-media-app-clairekarsenti.onrender.com/posts',
+        'https://beautipedia-clairekarsenti.onrender.com/posts',
         {
           method: 'GET',
           headers: { Authorization: `Bearer ${token}` },
@@ -27,7 +27,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
   const getUserPosts = async () => {
     try {
       const response = await fetch(
-        `https://social-media-app-clairekarsenti.onrender.com/posts/${userId}/posts`,
+        `https://beautipedia-clairekarsenti.onrender.com/posts/${userId}/posts`,
         {
           method: 'GET',
           headers: { Authorization: `Bearer ${token}` },

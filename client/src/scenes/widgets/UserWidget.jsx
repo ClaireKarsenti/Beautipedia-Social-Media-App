@@ -24,7 +24,7 @@ const UserWidget = ({ userId, picturePath }) => {
   const getUser = async () => {
     try {
       const response = await fetch(
-        `https://social-media-app-clairekarsenti.onrender.com/users/${userId}`,
+        `https://beautipedia-clairekarsenti.onrender.com/users/${userId}`,
         {
           method: 'GET',
           headers: { Authorization: `Bearer ${token}` },
