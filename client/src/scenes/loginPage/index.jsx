@@ -1,5 +1,6 @@
 import { Box, Typography, useTheme, useMediaQuery } from '@mui/material';
 import Form from './Form';
+import Footer from 'components/Footer';
 
 const LoginPage = () => {
   const theme = useTheme();
@@ -16,7 +17,6 @@ const LoginPage = () => {
           Beautypedia
         </Typography>
       </Box>
-
       <Box
         width={isNonMobileScreens ? '50%' : '93%'}
         p="2rem"
@@ -29,6 +29,7 @@ const LoginPage = () => {
         </Typography>
         <Form />
       </Box>
+      <Footer />
     </Box>
   );
 };
