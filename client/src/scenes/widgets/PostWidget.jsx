@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import {
   ChatBubbleOutlineOutlined,
   FavoriteBorderOutlined,
@@ -8,7 +9,6 @@ import { Box, Divider, IconButton, Typography, useTheme } from '@mui/material';
 import FlexBetween from 'components/FlexBetween';
 import Friend from 'components/Friend';
 import WidgetWrapper from 'components/WidgetWrapper';
-import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPost } from 'state';
 
@@ -27,8 +27,8 @@ const PostWidget = ({
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
   const loggedInUserId = useSelector((state) => state.user._id);
-  const isLiked = Boolean(likes[loggedInUserId]);
-  const likeCount = Object.keys(likes).length;
+  const isLiked = likes && likes[loggedInUserId] !== undefined;
+  const likeCount = likes ? Object.keys(likes).length : 0;
 
   const { palette } = useTheme();
   const main = palette.neutral.main;
@@ -87,7 +87,7 @@ const PostWidget = ({
             <IconButton onClick={() => setIsComments(!isComments)}>
               <ChatBubbleOutlineOutlined />
             </IconButton>
-            <Typography>{comments.length}</Typography>
+            <Typography>{comments ? comments.length : 0}</Typography>
           </FlexBetween>
         </FlexBetween>
 

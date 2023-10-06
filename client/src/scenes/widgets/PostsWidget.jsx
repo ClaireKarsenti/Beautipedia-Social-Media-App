@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setPosts } from 'state';
+import { setPosts } from '../../state/index';
 import PostWidget from './PostWidget';
 
 const PostsWidget = ({ userId, isProfile = false }) => {
@@ -8,45 +8,29 @@ const PostsWidget = ({ userId, isProfile = false }) => {
   const posts = useSelector((state) => state.posts || []);
   const token = useSelector((state) => state.token);
 
-  const getPosts = async () => {
+  const fetchPosts = async (url) => {
     try {
-      const response = await fetch(
-        'https://beautipedia-clairekarsenti.onrender.com/posts',
-        {
-          method: 'GET',
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (!response.ok) {
+        throw new Error(`Request failed with status: ${response.status}`);
+      }
       const data = await response.json();
       dispatch(setPosts({ posts: data }));
     } catch (error) {
-      console.error('Error fetching posts:', error);
-    }
-  };
-
-  const getUserPosts = async () => {
-    try {
-      const response = await fetch(
-        `https://beautipedia-clairekarsenti.onrender.com/posts/${userId}/posts`,
-        {
-          method: 'GET',
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      const data = await response.json();
-      dispatch(setPosts({ posts: data }));
-    } catch (error) {
-      console.error('Error fetching user posts:', error);
+      console.error(`Error fetching ${isProfile ? 'user' : ''} posts:`, error);
     }
   };
 
   useEffect(() => {
-    if (isProfile) {
-      getUserPosts();
-    } else {
-      getPosts();
-    }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    const apiUrl = isProfile
+      ? `https://beautipedia-clairekarsenti.onrender.com/posts/${userId}/posts`
+      : 'https://beautipedia-clairekarsenti.onrender.com/posts';
+
+    fetchPosts(apiUrl);
+  }, [userId, isProfile, token]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
