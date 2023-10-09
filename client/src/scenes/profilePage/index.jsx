@@ -10,6 +10,7 @@ import UserWidget from 'scenes/widgets/UserWidget';
 
 const ProfilePage = () => {
   const [user, setUser] = useState(null);
+  const [searchBar, setSearchBar] = useState('');
   const { userId } = useParams();
   const token = useSelector((state) => state.token);
   const isNonMobileScreens = useMediaQuery('(min-width:1000px)');
@@ -41,9 +42,13 @@ const ProfilePage = () => {
 
   if (!user) return null;
 
+  const handleSearch = (e) => {
+    setSearchBar(e.target.value);
+  };
+
   return (
     <Box>
-      <Navbar />
+      <Navbar searchBar={searchBar} handleSearch={handleSearch} />
       <Box
         width="100%"
         padding="2rem 6%"
@@ -62,7 +67,7 @@ const ProfilePage = () => {
         >
           <MyPostWidget picturePath={user.picturePath} />
           <Box m="2rem 0" />
-          <PostsWidget userId={userId} isProfile />
+          <PostsWidget userId={userId} isProfile searchBar={searchBar} />
         </Box>
       </Box>
     </Box>

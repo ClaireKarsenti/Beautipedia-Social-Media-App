@@ -36,24 +36,23 @@ const PostsWidget = ({ userId, isProfile = false, searchBar }) => {
   }, [userId, isProfile, token]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const filteredPosts = searchBar
-  ? posts.filter((post) => {
-      const postDescription = post?.description?.toLowerCase();
-      const search = searchBar.toLowerCase();
+    ? posts.filter((post) => {
+        const postDescription = post?.description?.toLowerCase();
+        const search = searchBar.toLowerCase();
 
-      const descriptionMatch = postDescription?.includes(search);
-      const firstNameMatch = post?.firstName?.toLowerCase()?.includes(search);
-      const lastNameMatch = post?.lastName?.toLowerCase()?.includes(search);
+        const descriptionMatch = postDescription?.includes(search);
+        const firstNameMatch = post?.firstName?.toLowerCase()?.includes(search);
+        const lastNameMatch = post?.lastName?.toLowerCase()?.includes(search);
 
-      return descriptionMatch || firstNameMatch || lastNameMatch;
-    })
-  : posts;
-
+        return descriptionMatch || firstNameMatch || lastNameMatch;
+      })
+    : posts;
 
   return (
     <>
       {filteredPosts.length === 0 ? (
         <Typography color={main} sx={{ mt: '1rem' }}>
-          Sorry, there is no match.
+          Sorry, there is no {isProfile ? 'post' : 'match'}.
         </Typography>
       ) : (
         filteredPosts.map(
