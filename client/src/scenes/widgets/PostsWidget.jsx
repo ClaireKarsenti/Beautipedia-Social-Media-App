@@ -36,16 +36,18 @@ const PostsWidget = ({ userId, isProfile = false, searchBar }) => {
   }, [userId, isProfile, token]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const filteredPosts = searchBar
-    ? posts.filter((post) => {
-        const descriptionMatch = post?.description
-          ?.toLowerCase()
-          .includes(searchBar.toLowerCase());
-        const nameMatch =
-          post?.firstName?.toLowerCase().includes(searchBar.toLowerCase()) ||
-          post?.lastName?.toLowerCase().includes(searchBar.toLowerCase());
-        return descriptionMatch || nameMatch;
-      })
-    : posts;
+  ? posts.filter((post) => {
+      const postDescription = post?.description?.toLowerCase();
+      const search = searchBar.toLowerCase();
+
+      const descriptionMatch = postDescription?.includes(search);
+      const firstNameMatch = post?.firstName?.toLowerCase()?.includes(search);
+      const lastNameMatch = post?.lastName?.toLowerCase()?.includes(search);
+
+      return descriptionMatch || firstNameMatch || lastNameMatch;
+    })
+  : posts;
+
 
   return (
     <>
