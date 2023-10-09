@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Box, useMediaQuery } from '@mui/material';
 import Navbar from 'scenes/navBar';
@@ -12,10 +12,15 @@ import Footer from 'components/Footer';
 const HomePage = () => {
   const isNonMobileScreens = useMediaQuery('(min-width:1000px)');
   const { _id, picturePath } = useSelector((state) => state.user);
+  const [searchBar, setSearchBar] = useState('');
+
+  const handleSearch = (e) => {
+    setSearchBar(e.target.value);
+  };
 
   return (
     <Box>
-      <Navbar />
+      <Navbar searchBar={searchBar} handleSearch={handleSearch} />
       <Box
         width="100%"
         padding="2rem 6%"
@@ -31,7 +36,7 @@ const HomePage = () => {
           mt={isNonMobileScreens ? undefined : '2rem'}
         >
           <MyPostWidget picturePath={picturePath} />
-          <PostsWidget userId={_id} />
+          <PostsWidget userId={_id} searchBar={searchBar} />
         </Box>
         {isNonMobileScreens && (
           <Box flexBasis="26%">

@@ -1,12 +1,15 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Typography, useTheme } from '@mui/material';
 import { setPosts } from '../../state/index';
 import PostWidget from './PostWidget';
 
-const PostsWidget = ({ userId, isProfile = false }) => {
+const PostsWidget = ({ userId, isProfile = false, searchBar }) => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts || []);
   const token = useSelector((state) => state.token);
+  const { palette } = useTheme();
+  const main = palette.neutral.main;
 
   const fetchPosts = async (url) => {
     try {
@@ -32,10 +35,26 @@ const PostsWidget = ({ userId, isProfile = false }) => {
     fetchPosts(apiUrl);
   }, [userId, isProfile, token]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  const filteredPosts = searchBar
+    ? posts.filter((post) => {
+        const descriptionMatch = post?.description
+          ?.toLowerCase()
+          .includes(searchBar.toLowerCase());
+        const nameMatch =
+          post?.firstName?.toLowerCase().includes(searchBar.toLowerCase()) ||
+          post?.lastName?.toLowerCase().includes(searchBar.toLowerCase());
+        return descriptionMatch || nameMatch;
+      })
+    : posts;
+
   return (
     <>
-      {Array.isArray(posts) &&
-        posts.map(
+      {filteredPosts.length === 0 ? (
+        <Typography color={main} sx={{ mt: '1rem' }}>
+          Sorry, there is no match.
+        </Typography>
+      ) : (
+        filteredPosts.map(
           ({
             _id,
             userId,
@@ -61,7 +80,8 @@ const PostsWidget = ({ userId, isProfile = false }) => {
               comments={comments}
             />
           )
-        )}
+        )
+      )}
     </>
   );
 };
